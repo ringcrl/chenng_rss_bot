@@ -68,7 +68,7 @@ async function helpText(ctx: MContext) {
     builder.push(i18n[lang]['UNSUB_USAGE']);
     builder.push(i18n[lang]['UNSUBTHIS_USAGE']);
     builder.push(i18n[lang]['USB_ALL_USAGE']);
-    builder.push(i18n[lang]['SEND_FILE_IMPORT']);
+    builder.push(i18n[lang]['IMPORT_USAGE']);
     builder.push(i18n[lang]['EXPORT']);
     if (view_all) builder.push(i18n[lang]['VIEW_ALL_USAGE']);
     builder.push(i18n[lang]['LANG_USAGE']);

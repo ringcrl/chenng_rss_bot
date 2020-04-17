@@ -28,7 +28,7 @@
 
 ```sh
 docker pull ringcrl/node_rss_bot
-docker run --name rssbot -d -v /var/data:/app/data/ -e RSSBOT_TOKEN=<TG_TOKEN> ringcrl/node_rss_bot
+docker run --name node_rss_bot -d -v /var/data:/app/data/ -e RSSBOT_TOKEN=<TG_TOKEN> ringcrl/node_rss_bot
 ```
 
 # PM2 部署

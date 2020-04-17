@@ -60,36 +60,28 @@ bot.telegram.getMe().then((botInfo) => {
     bot.options.username = botInfo.username;
 });
 
-bot.command('start', sendError, async (ctx: MContext) => {
+async function helpText(ctx: MContext) {
     const builder = [];
     const { lang } = ctx.state;
-    builder.push(i18n[lang]['WELCOME']);
+    builder.push(i18n[lang]['RSS_USAGE'])
     builder.push(i18n[lang]['SUB_USAGE']);
     builder.push(i18n[lang]['UNSUB_USAGE']);
-    builder.push(i18n[lang]['RSS_USAGE']);
+    builder.push(i18n[lang]['UNSUBTHIS_USAGE']);
+    builder.push(i18n[lang]['USB_ALL_USAGE']);
     builder.push(i18n[lang]['SEND_FILE_IMPORT']);
     builder.push(i18n[lang]['EXPORT']);
-    builder.push(i18n[lang]['USB_ALL_USAGE']);
-    builder.push(i18n[lang]['LANG_USAGE']);
     if (view_all) builder.push(i18n[lang]['VIEW_ALL_USAGE']);
+    builder.push(i18n[lang]['LANG_USAGE']);
+    builder.push(i18n[lang]['HEATH_USAGE']);
     await ctx.replyWithMarkdown(builder.join('\n'));
+}
+
+bot.command('start', sendError, async (ctx: MContext) => {
+    await helpText(ctx)
 });
 
 bot.command('help', sendError, async (ctx: MContext) => {
-    const builder = [];
-    const { lang } = ctx.state;
-    builder.push(i18n[lang]['SUB_USAGE']);
-    builder.push(i18n[lang]['UNSUB_USAGE']);
-    builder.push(i18n[lang]['RSS_USAGE']);
-    builder.push(i18n[lang]['SEND_FILE_IMPORT']);
-    builder.push(i18n[lang]['EXPORT']);
-    builder.push(i18n[lang]['USB_ALL_USAGE']);
-    builder.push(i18n[lang]['LANG_USAGE']);
-    if (view_all) builder.push(i18n[lang]['VIEW_ALL_USAGE']);
-    builder.push(
-        `[https://github.com/fengkx/NodeRSSBot/blob/master/README.md](https://github.com/fengkx/NodeRSSBot/blob/master/README.md)`
-    );
-    await ctx.replyWithMarkdown(builder.join('\n'));
+    await helpText(ctx)
 });
 
 bot.command('sub', sendError, isAdmin, getUrl, testUrl, sub);
@@ -104,6 +96,35 @@ bot.command('export', sendError, isAdmin, exportToOpml);
 
 bot.command('import', importReply);
 
+bot.command('viewall', sendError, onlyPrivateChat, async (_ctx: MContext, next) => {
+    if (view_all) await next();
+    else throw errors.newCtrlErr('COMMAND_NOT_ENABLED');
+},
+    viewAll
+);
+
+bot.command('allunsub', sendError, isAdmin, async (ctx: MContext, next) => {
+    // RSS.unsubAll,
+    const { lang } = ctx.state;
+    await twoKeyReply(
+        [
+            {
+                text: i18n[lang]['YES'],
+                callback_data: 'UNSUB_ALL_YES'
+            },
+            {
+                text: i18n[lang]['NO'],
+                callback_data: 'UNSUB_ALL_NO'
+            }
+        ],
+        i18n[lang]['CONFIRM']
+    )(ctx, next);
+});
+
+bot.command('lang', sendError, isAdmin, replyKeyboard);
+
+bot.command('heath', sendError, onlyPrivateChat, isAdmin, getActiveFeedWithErrorCount);
+
 bot.on('document', sendError, isAdmin, getFileLink, importFromOpml);
 
 bot.on('migrate_to_chat_id', (ctx) => {
@@ -112,49 +133,6 @@ bot.on('migrate_to_chat_id', (ctx) => {
     migrateUser(from, to);
 });
 
-bot.command(
-    'viewall',
-    sendError,
-    onlyPrivateChat,
-    async (_ctx: MContext, next) => {
-        if (view_all) await next();
-        else throw errors.newCtrlErr('COMMAND_NOT_ENABLED');
-    },
-    viewAll
-);
-
-bot.command(
-    'allunsub',
-    sendError,
-    isAdmin,
-    // RSS.unsubAll,
-    async (ctx: MContext, next) => {
-        const { lang } = ctx.state;
-        await twoKeyReply(
-            [
-                {
-                    text: i18n[lang]['YES'],
-                    callback_data: 'UNSUB_ALL_YES'
-                },
-                {
-                    text: i18n[lang]['NO'],
-                    callback_data: 'UNSUB_ALL_NO'
-                }
-            ],
-            i18n[lang]['CONFIRM']
-        )(ctx, next);
-    }
-);
-
-bot.command('lang', sendError, isAdmin, replyKeyboard);
-
-bot.command(
-    'heath',
-    sendError,
-    onlyPrivateChat,
-    isAdmin,
-    getActiveFeedWithErrorCount
-);
 
 bot.action(/^CHANGE_LANG[\w_]+/, changeLangCallback);
 
@@ -243,8 +221,8 @@ function startFetchProcess(restartTime: number): void {
     const child = process.env.NODE_PRODUTION
         ? fork(fetchJS)
         : fork(fetchJS, [], {
-              execArgv: ['--inspect-brk=46209']
-          });
+            execArgv: ['--inspect-brk=46209']
+        });
     child.on('message', function (message: Message | string) {
         if (typeof message === 'string') logger.info(message);
         else if (isSuccess(message)) {

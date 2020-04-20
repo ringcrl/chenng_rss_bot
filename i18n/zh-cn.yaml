@@ -1,3 +1,13 @@
+RSS_USAGE: 使用方法：/rss 输出订阅列表 加 raw 显示链接
+SUB_USAGE: 使用方法：/sub <RSS URL>
+UNSUB_USAGE: 使用方法：/unsub <RSS URL>
+UNSUBTHIS_USAGE: 使用方法：/unsubthis 回复想要退订的 RSS 消息
+USB_ALL_USAGE: 使用方法：/allunsub 退订所有源
+IMPORT_USAGE: 使用方法：/import 回复这条消息或者直接发 opml 文档
+EXPORT: 使用方法：/export 导出 opml 格式订阅源
+VIEW_ALL_USAGE: 使用方法：/viewall 查看所有订阅和订阅人数 需要在设置中打开，加 `raw` 显示链接
+LANG_USAGE: 使用方法：/lang 更改语言
+HEATH_USAGE: 使用方法：/heath 展示活跃订阅源的健康程度
 FEED_URL_NOT_PARSE: 无法解析URL
 FETCH_ERROR: 抓取错误
 404: 抓取错误 HTTP404 Not Found
@@ -5,10 +15,7 @@ FETCH_ERROR: 抓取错误
 ALREADY_SUB: 已经订阅过了
 DB_ERROR: SQLite操作出错
 DID_NOT_SUB: 你没有订阅这个 feed
-SUB_USAGE: 使用方法：/sub <RSS URL>
-UNSUB_USAGE: 使用方法：/unsub <RSS URL>
 ADMIN_ONLY: 只有管理员才能操作
-UNSUBTHIS_USAGE: 使用方法：/unsubthis 回复想要退订的 RSS 消息
 SAME_NAME: 有同名的RSS源，请使用 /unsub 退订
 PROCESSING: 正在处理请稍候
 SUB_SUCCESS: 成功订阅
@@ -21,12 +28,7 @@ NETWORK_ERROR: 网络错误
 IMPORT_SUCCESS: 成功导入
 FILESYSTEM_ERROR: 读写文件发生错误
 UNSUB_ALL_SUCCESS: 成功退订所有订阅源
-EXPORT: 使用方法：/export 导出 opml 格式订阅源
 SEND_FILE_IMPORT: 发送 opml 文件导入订阅源
-RSS_USAGE: 使用方法： /rss 输出订阅列表 加 raw 显示链接
-VIEW_ALL_USAGE: 使用方法：/viewall 查看所有订阅和订阅人数 需要在设置中打开，加 `raw` 显示链接
-USB_ALL_USAGE: 使用方法：/allunsub 退订所有源
-IMPORT_USAGE: 使用方法：/import 回复这条消息或者直接发 opml 文档
 CONFIRM: 是否继续当前操作
 PRIVATE_CHAT_ONLY: 只能在私聊中使用
 ALL_FEED: 所有被订阅的 feed
@@ -44,9 +46,7 @@ FOUND_FEEDS: 找到的订阅地址
 FEED_CHANGE_TO: 订阅源地址变为
 CHOOSE_LANG: 选择语言
 SET_LANG_TO: 更改语言为
-LANG_USAGE: 使用方法：/lang 更改语言
 CHOOSE_UNSUB: 选择你想要退订的源
 ACTIVE_FEED_COUNT_WITH_ERROR: 错误的活跃订阅源数
 TOTAL_ACTIVE_FEED_COUNT: 总活跃订阅源数
 CREATOR_ONLY: 只限 Bot 创建者使用
-HEATH_USAGE: 使用方法：/heath 展示活跃订阅源的健康程度

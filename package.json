@@ -1,5 +1,5 @@
 {
-  "name": "noderssbot",
+  "name": "node-rss-bot",
   "version": "0.5.1",
   "description": "Another Telegram RSSBot in Node.js",
   "main": "dist/source",

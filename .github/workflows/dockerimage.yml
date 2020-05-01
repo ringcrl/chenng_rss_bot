@@ -1,5 +1,13 @@
 name: Publish Docker
-on: [push]
+
+env:
+  IMAGE_REPOSITORY: ringcrl/node_rssbot
+
+on:
+  push:
+    branches:
+      master
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -8,7 +16,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
-        name: fengkx/node_rssbot
-        snapshot: true
+        name: ${{ env.IMAGE_REPOSITORY }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        snapshot: true

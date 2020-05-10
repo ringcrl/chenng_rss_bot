@@ -6,7 +6,8 @@ import { Outline } from '../source/types/outline';
 import { MContext } from '../source/types/ctx';
 
 jest.mock('../source/proxies/rss-feed', () => ({
-    sub: jest.fn()
+    sub: jest.fn(),
+    unsubAll: jest.fn(),
 }));
 
 jest.mock('../source/utils/got', () => {

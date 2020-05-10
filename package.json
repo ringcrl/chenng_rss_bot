@@ -4,10 +4,11 @@
   "description": "Another Telegram RSSBot in Node.js",
   "main": "dist/source",
   "scripts": {
+    "watch": "del-cli dist && cpy source/database/sql dist/source/database/sql && cpy source/template dist/source/template && cpy i18n dist/i18n && tsc --watch",
     "build": "del-cli dist && tsc && cpy source/database/sql dist/source/database/sql && cpy source/template dist/source/template && cpy i18n dist/i18n",
+    "dev": "node dist/source/index",
     "start": "cross-env NODE_PRODUTION=true node dist/source/index.js",
     "start-withsnapshot": "cross-env NODE_PRODUTION=true node --heapsnapshot-signal=SIGUSR2 dist/source/index.js",
-    "dev": "proxychains -q node dist/source/index",
     "test": "cross-env RSSBOT_DB_PATH=test/test-data/test.db npx jest --verbose",
     "format": "eslint \"source/**/*.{js,ts}\" --fix && prettier \"**/*.{js,ts,json,md}\" --write",
     "lint": "eslint \"source/**/*.{js,ts}\" && prettier-check \"**/*.{js,ts,json,md}\" && npm run lint-lockfile",

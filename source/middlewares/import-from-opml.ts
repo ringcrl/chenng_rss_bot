@@ -2,7 +2,7 @@ import { Outline, XmlOutline } from '../types/outline';
 import got from '../utils/got';
 import { Parser } from 'xml2js';
 import errors from '../utils/errors';
-import { sub } from '../proxies/rss-feed';
+import { sub, unsubAll } from '../proxies/rss-feed';
 import i18n from '../i18n';
 import { MContext, Next } from '../types/ctx';
 function parseOutlines(outlines: XmlOutline[], lst: Outline[]) {
@@ -24,7 +24,9 @@ const getOutlines = async function (data: string): Promise<Outline[]> {
 // eslint-disable-line
 export const _getOutlines = getOutlines;
 export default async (ctx: MContext, next: Next) => {
-    const { fileLink, lang } = ctx.state;
+    const { fileLink, lang, chat } = ctx.state;
+
+    await unsubAll(chat.id);
 
     try {
         const res = await got.get(fileLink);

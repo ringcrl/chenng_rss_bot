@@ -13,6 +13,20 @@
 使用方法：/heath 展示活跃订阅源的健康程度
 ```
 
+# 本地开发
+
+```sh
+# 代码编译
+npm run watch
+
+# 运行服务
+export RSSBOT_TOKEN=<RSSBOT_TOKEN> \
+export PROXY_PROTOCOL=socks \
+export PROXY_HOST=127.0.0.1 \
+export PROXY_PORT=1080 \
+&& npm run dev
+```
+
 # Docker 部署
 
 获取 [TG_TOKEN](https://core.telegram.org/bots#3-how-do-i-create-a-bot)

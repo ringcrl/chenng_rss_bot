@@ -2,6 +2,9 @@ import * as path from 'path';
 import { Config } from './types/config';
 import { version } from '../package.json';
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 export const config: Config = {
     token: process.env.RSSBOT_TOKEN || '',
     proxy: {

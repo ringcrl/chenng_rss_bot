@@ -63,7 +63,7 @@ bot.telegram.getMe().then((botInfo) => {
 async function helpText(ctx: MContext) {
     const builder = [];
     const { lang } = ctx.state;
-    builder.push(i18n[lang]['RSS_USAGE'])
+    builder.push(i18n[lang]['RSS_USAGE']);
     builder.push(i18n[lang]['SUB_USAGE']);
     builder.push(i18n[lang]['UNSUB_USAGE']);
     builder.push(i18n[lang]['UNSUBTHIS_USAGE']);
@@ -77,11 +77,11 @@ async function helpText(ctx: MContext) {
 }
 
 bot.command('start', sendError, async (ctx: MContext) => {
-    await helpText(ctx)
+    await helpText(ctx);
 });
 
 bot.command('help', sendError, async (ctx: MContext) => {
-    await helpText(ctx)
+    await helpText(ctx);
 });
 
 bot.command('sub', sendError, isAdmin, getUrl, testUrl, sub);
@@ -96,10 +96,14 @@ bot.command('export', sendError, isAdmin, exportToOpml);
 
 bot.command('import', importReply);
 
-bot.command('viewall', sendError, onlyPrivateChat, async (_ctx: MContext, next) => {
-    if (view_all) await next();
-    else throw errors.newCtrlErr('COMMAND_NOT_ENABLED');
-},
+bot.command(
+    'viewall',
+    sendError,
+    onlyPrivateChat,
+    async (_ctx: MContext, next) => {
+        if (view_all) await next();
+        else throw errors.newCtrlErr('COMMAND_NOT_ENABLED');
+    },
     viewAll
 );
 
@@ -123,7 +127,13 @@ bot.command('allunsub', sendError, isAdmin, async (ctx: MContext, next) => {
 
 bot.command('lang', sendError, isAdmin, replyKeyboard);
 
-bot.command('heath', sendError, onlyPrivateChat, isAdmin, getActiveFeedWithErrorCount);
+bot.command(
+    'heath',
+    sendError,
+    onlyPrivateChat,
+    isAdmin,
+    getActiveFeedWithErrorCount
+);
 
 bot.on('document', sendError, isAdmin, getFileLink, importFromOpml);
 
@@ -132,7 +142,6 @@ bot.on('migrate_to_chat_id', (ctx) => {
     const to = ctx.update.message.migrate_to_chat_id;
     migrateUser(from, to);
 });
-
 
 bot.action(/^CHANGE_LANG[\w_]+/, changeLangCallback);
 
@@ -221,8 +230,8 @@ function startFetchProcess(restartTime: number): void {
     const child = process.env.NODE_PRODUTION
         ? fork(fetchJS)
         : fork(fetchJS, [], {
-            execArgv: ['--inspect-brk=46209']
-        });
+              execArgv: ['--inspect-brk=46209']
+          });
     child.on('message', function (message: Message | string) {
         if (typeof message === 'string') logger.info(message);
         else if (isSuccess(message)) {

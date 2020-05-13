@@ -16,15 +16,13 @@
 # 本地开发
 
 ```sh
+# 参考 .env.example 配置 .env
+
 # 代码编译
 npm run watch
 
 # 运行服务
-export RSSBOT_TOKEN=<RSSBOT_TOKEN> \
-export PROXY_PROTOCOL=socks \
-export PROXY_HOST=127.0.0.1 \
-export PROXY_PORT=1080 \
-&& npm run dev
+npm run dev
 ```
 
 # Docker 部署
@@ -55,7 +53,10 @@ docker push ringcrl/node-rss-bot
 
 ```sh
 docker pull ringcrl/node-rss-bot
-docker run --name node-rss-bot -d -v /var/data:/app/data/ -e RSSBOT_TOKEN=<TG_TOKEN> ringcrl/node-rss-bot
+docker run --name node-rss-bot \
+  -d -v /var/data:/app/data/ \
+  -e RSSBOT_TOKEN=<TG_TOKEN> \
+  ringcrl/node-rss-bot
 ```
 
 ### 更新
@@ -77,5 +78,8 @@ docker kill 26cd26b1a5d5
 docker rm 26cd26b1a5d5
 
 # 重新创建容器
-docker run --name node-rss-bot -d -v /var/data:/app/data/ -e RSSBOT_TOKEN=<TG_TOKEN> ringcrl/node-rss-bot
+docker run --name node-rss-bot \
+  -d -v /var/data:/app/data/ \
+  -e RSSBOT_TOKEN=<TG_TOKEN> \
+  ringcrl/node-rss-bot
 ```

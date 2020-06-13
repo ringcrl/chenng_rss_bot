@@ -48,7 +48,7 @@ docker push ringcrl/chenng_rss_bot
 ### 部署
 
 ```sh
-docker pull ringcrl/chenng_rss_bot
+docker pull ringcrl/chenng_rss_bot:latest
 docker run --name chenng_rss_bot \
   -d -v /var/data:/app/data/ \
   -e RSSBOT_TOKEN=<TG_TOKEN> \
@@ -62,7 +62,7 @@ docker run --name chenng_rss_bot \
 docker ps
 
 # 使用 -f 停止并删除容器
-docker rm -f 26cd26b1a5d5
+docker container rm -f 26cd26b1a5d5
 
 # 按照上一步【部署】，重新启动容器
 ```

@@ -1,7 +1,7 @@
 {
-  "name": "node-rss-bot",
+  "name": "chenng_rss_bot",
   "version": "0.5.1",
-  "description": "Another Telegram RSSBot in Node.js",
+  "description": "Telegram RSSBot in Node.js",
   "main": "dist/source",
   "scripts": {
     "watch": "del-cli dist && cpy source/database/sql dist/source/database/sql && cpy source/template dist/source/template && cpy i18n dist/i18n && tsc --watch",

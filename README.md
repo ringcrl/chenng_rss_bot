@@ -18,32 +18,28 @@
 ```sh
 # 参考 .env.example 配置 .env
 
-# 代码编译
+# 方法1：代码编译、运行服务
 npm run watch
-
-# 运行服务
 npm run dev
+
+# 方法2：vscode debug 运行 index.ts
 ```
 
 # Docker 部署
 
 获取 [TG_TOKEN](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
 
-## 手动部署
-
-### 构建镜像
+## 本地构建
 
 ```sh
-docker build -t ringcrl/node-rss-bot .
+# 构建镜像
+docker build -t ringcrl/chenng_rss_bot .
+
+# 发布镜像
+docker push ringcrl/chenng_rss_bot
 ```
 
-### 发布镜像
-
-```sh
-docker push ringcrl/node-rss-bot
-```
-
-## Github Actions 部署
+## Github Actions 构建
 
 修改 .github/workflows/docker.yml 文件，部署到自己的 Docker Hub
 
@@ -52,34 +48,21 @@ docker push ringcrl/node-rss-bot
 ### 部署
 
 ```sh
-docker pull ringcrl/node-rss-bot
-docker run --name node-rss-bot \
+docker pull ringcrl/chenng_rss_bot
+docker run --name chenng_rss_bot \
   -d -v /var/data:/app/data/ \
   -e RSSBOT_TOKEN=<TG_TOKEN> \
-  ringcrl/node-rss-bot
+  ringcrl/chenng_rss_bot
 ```
 
 ### 更新
 
 ```sh
-# 查看镜像
-docker images
-
-# 拉取最新镜像
-docker pull ringcrl/node-rss-bot
-
 # 查找容器
 docker ps
 
-# 停止容器
-docker kill 26cd26b1a5d5
+# 使用 -f 停止并删除容器
+docker rm -f 26cd26b1a5d5
 
-# 删除容器
-docker rm 26cd26b1a5d5
-
-# 重新创建容器
-docker run --name node-rss-bot \
-  -d -v /var/data:/app/data/ \
-  -e RSSBOT_TOKEN=<TG_TOKEN> \
-  ringcrl/node-rss-bot
+# 按照上一步【部署】，重新启动容器
 ```
